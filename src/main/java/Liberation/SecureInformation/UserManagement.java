@@ -6,14 +6,14 @@ import java.util.stream.IntStream;
 
 public class UserManagement {
     private final LoginSystem loginSystem;
-    public UserManagement(LoginSystem loginSystem) {
+    public UserManagement(LoginSystem loginSystem, byte[] sessionID) {
         this.loginSystem = loginSystem;
     }
 
     public void createWorkerAccount(String email, String workplaceID, String sessionKey, String userType) {
 
     }
-    public void addUser(String email, String sessionID, String userType) {
+    public void addUser(String email, byte[] sessionID, String userType) {
         Database database = null;
         if(userType.equals("Staff")) {
             database = new StaffCredentialDatabase();
@@ -37,8 +37,9 @@ public class UserManagement {
         }
     }
 
-    private void createNewUser(String email, String sessionID) {
+    private void createNewUser(String email, byte[] sessionID) {
         String tempPass = generateTempPassword();
+        //generateUserTempKey();
     }
 
     private String generateTempPassword() {
@@ -48,10 +49,10 @@ public class UserManagement {
         for(int x = 0; x < 8; x++) {
             tempPass[x] = (char) (random.nextInt(57)+66);
         }
-        return Arrays.toString(tempPass);
+        return String.copyValueOf(tempPass);
     }
 
-    private String generateUserTempKey(String sessionID, String userTempPass) {
+    private String generateUserTempKey(byte[] sessionID, String userTempPass) {
         return "";
     }
 

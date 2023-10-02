@@ -1,23 +1,31 @@
 package Liberation.SecureInformation;
 
+import java.security.SecureRandom;
+import java.util.Arrays;
+
 public class StaffLoginSystem implements LoginSystem {
     private final UserManagement userManagement;
     private final WorkplaceManagment workplaceManagment;
     private final UnionCardManagment unionCardManagment;
-    private final String sessionID;
+    private final byte[] sessionID;
 
     StaffGUI staffGUI;
 
     public StaffLoginSystem(StaffGUI gui) {
-        userManagement = new UserManagement(this);
         workplaceManagment = new WorkplaceManagment();
         unionCardManagment = new UnionCardManagment();
         sessionID = createSessionID();
+        userManagement = new UserManagement(this,sessionID);
         staffGUI = gui;
     }
 
-    private String createSessionID() {
-        return "";
+    private byte[] createSessionID() {
+        byte[] sessionID = new byte[16];
+        SecureRandom random = new SecureRandom();
+        for(int x = 0; x < sessionID.length; x++) {
+            random.nextBytes(sessionID);
+        }
+        return sessionID;
     }
 
     @Override
@@ -25,7 +33,7 @@ public class StaffLoginSystem implements LoginSystem {
 
     }
 
-    public String getSessionID() {
+    public byte[] getSessionID() {
         return sessionID;
     }
 }

@@ -30,3 +30,9 @@ bin/
 .DS_Store
 
 .asta.lock
+gradle/
+build/
+.gradle/
+
+.bin
+.lock
