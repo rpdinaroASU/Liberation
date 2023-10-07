@@ -1,12 +1,24 @@
 package Liberation.SecureInformation;
 
+import Liberation.UserDatabase.Database;
+import Liberation.UserDatabase.OrganizerCredentialDatabase;
+import Liberation.UserDatabase.StaffCredentialDatabase;
+import Liberation.UserDatabase.WorkerCredentialDatabase;
+
+import javax.net.ssl.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class UserManagement {
     private final LoginSystem loginSystem;
-    public UserManagement(LoginSystem loginSystem, byte[] sessionID) {
+    private Database database;
+    private final String host = "localhost";
+    private final int port = 300;
+
+    public UserManagement(LoginSystem loginSystem) {
         this.loginSystem = loginSystem;
     }
 
@@ -14,7 +26,6 @@ public class UserManagement {
 
     }
     public void addUser(String email, byte[] sessionID, String userType) {
-        Database database = null;
         if(userType.equals("Staff")) {
             database = new StaffCredentialDatabase();
         }
@@ -52,25 +63,36 @@ public class UserManagement {
         return String.copyValueOf(tempPass);
     }
 
-    private String generateUserTempKey(byte[] sessionID, String userTempPass) {
-        return "";
+    /**
+     * verifies user is a staff member,
+     * if credentials are verified returns char[] of stored enc
+     * @return
+     */
+    private boolean verifyStaff() {
+        //estabish secured connection to StaffCredentialDatabase
+        //check credentials to database
+        // TODO
+        return true;
     }
 
-    private String decryptSynchronizedKey(String sessionKey) {
-        return "";
+    private boolean verifyOrganizer() {
+        //estabish secured connection to OrganizerCredentialDatabase
+        //check credentials to database
+        // TODO
+        return true;
     }
 
-    private String encryptNewSynchronizedKey(String userTempPass) {
-        return "";
+    private void establishSecureConnection() {
+        SSLSocketFactory sslSocketFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocket sslSocket = null;
+        try {
+            sslSocket = (SSLSocket) sslSocketFactory.createSocket(host,port);
+            InputStream in = sslSocket.getInputStream();
+            OutputStream out = sslSocket.getOutputStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
-
-    private String hashSaltPassword(String userTempPass) {
-        return "";
-    }
-
-    private String deriveKey(String userTempKey, String userTempPass) {
-        return "";
-    }
-
-
 }
