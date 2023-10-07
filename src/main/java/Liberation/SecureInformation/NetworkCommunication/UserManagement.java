@@ -1,5 +1,6 @@
-package Liberation.SecureInformation;
+package Liberation.SecureInformation.NetworkCommunication;
 
+import Liberation.SecureInformation.PermisionControl.LoginSystem;
 import Liberation.UserDatabase.Database;
 import Liberation.UserDatabase.OrganizerCredentialDatabase;
 import Liberation.UserDatabase.StaffCredentialDatabase;

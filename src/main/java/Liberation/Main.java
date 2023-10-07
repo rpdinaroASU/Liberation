@@ -1,7 +1,6 @@
 package Liberation;
 
-import Liberation.SecureInformation.StaffLoginSystem;
-import Liberation.SecureInformation.UserManagement;
+import Liberation.SecureInformation.NetworkCommunication.UserManagement;
 
 public class Main {
     public static void main(String[] args) {

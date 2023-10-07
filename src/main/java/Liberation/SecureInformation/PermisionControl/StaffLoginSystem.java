@@ -1,6 +1,10 @@
-package Liberation.SecureInformation;
+package Liberation.SecureInformation.PermisionControl;
 
-import javax.crypto.SecretKey;
+import Liberation.SecureInformation.NetworkCommunication.UnionCardManagment;
+import Liberation.SecureInformation.NetworkCommunication.UserManagement;
+import Liberation.SecureInformation.NetworkCommunication.WorkplaceManagment;
+import Liberation.SecureInformation.UserGUI.StaffGUI;
+
 import java.security.SecureRandom;
 
 public class StaffLoginSystem implements LoginSystem {
