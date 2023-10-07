@@ -38,3 +38,4 @@ build/
 .lock
 
 .png.bak
+*.bak
