@@ -1,0 +1,56 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table system_user {
+  workerID integer [primary key, not null, unique]
+  workplaceID integer [primary key, not null]
+  eEmail varchar(62) [not null]
+  ePassword varchar(256) [not null]
+  eFirstName varchar(50) [not null]
+  eLastName varchar(50) [not null]
+  isWorker shortInt(1) [not null]
+  isOrganizer shortInt(1) [not null]
+  isStaff shortInt(1) [not null]
+  isAdmin shortInt(1) [not null]
+}
+
+Table workplace_address {
+  workplaceID integer [primary key, not null, unique]
+  e_addressLineOne varchar [not null]
+  e_addressLineTwo varchar
+  e_city varchar [not null]
+  state varchar(15) [not null]
+  e_zipCode int(5) [not null]
+}
+
+Table union_card {
+  workerID integer [primary key, not null]
+  workplaceID integer [primary key, not null]
+  e_signDate integer(8) [not null]
+  e_union_card_document varbinary [not null]
+}
+
+Table workplace {
+  workplaceID integer [primary key, not null]
+  e_workplace_nickname varchar 
+  e_store_number integer
+  e_phone_number integer(10) [not null]
+}
+
+Table worker {
+  workerID integer [primary key, not null]
+  workplaceID integer [primary key, not null]
+  e_address varchar
+  e_shiftWorked varbyte(1)
+  ocManaging integer
+  isCurrentEmployee shortInt(1)
+  notes varchar
+}
+
+Ref: system_user.(workplaceID) >  workplace_address.(workplaceID)
+Ref: union_card.(workplaceID) > workplace_address.(workplaceID)
+Ref: union_card.(workerID) > system_user.(workerID)
+Ref: workplace.(workplaceID) > workplace_address.(workplaceID)
+Ref: worker.(workplaceID) > workplace_address.(workplaceID)
+Ref: worker.(workerID) > system_user.(workerID)
+Ref: worker.(ocManaging) > system_user.(workerID)
